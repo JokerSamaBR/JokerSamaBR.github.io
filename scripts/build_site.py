@@ -153,21 +153,6 @@ def sync_source(source, site, dist, token=""):
     print("OK " + pid + ": conteúdo público aprovado importado")
 
 
-def render_feed(posts):
-    out = []
-    for p in sorted(posts, key=lambda x: (x["date"], x["slug"]), reverse=True):
-        date = datetime.combine(datetime.strptime(p["date"], "%Y-%m-%d").date(),
-                                time(12), tzinfo=timezone.utc)
-        link = SITE_URL + "/post.html?id=" + quote(p["slug"])
-        out.append("<item><title>" + escape(p["title"]) + "</title><link>" + link +
-                   "</link><guid>" + link + "</guid><description>" + escape(p["summary"]) +
-                   "</description><pubDate>" + format_datetime(date, usegmt=True) + "</pubDate></item>")
-    return ('<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel>'
-            '<title>WYO Dev Journal</title><link>' + SITE_URL + '/</link>'
-            '<description>Atualizações públicas dos projetos WYO Digital</description>'
-            '<language>pt-br</language>' + "".join(out) + "</channel></rss>\n")
-
-
 def render_sitemap():
     return ('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
             '<url><loc>' + SITE_URL + '/</loc></url><url><loc>' + SITE_URL +
@@ -192,16 +177,27 @@ def build(remote=False, out=None):
                        and (out / img.lstrip("/")).is_file()]
     if remote:
         token = os.getenv("WYO_PUBLIC_FEED_READ_TOKEN", "")
-        for src in read_json(ROOT / "automation" / "sources.json")["sources"]:
+        source_config = os.getenv("WYO_PUBLIC_SOURCES_JSON", "").strip()
+        if source_config:
             try:
-                sync_source(src, site, out, token)
-            except (ValueError, RuntimeError, URLError, json.JSONDecodeError) as exc:
-                print("AVISO " + src["project_id"] + ": não sincronizado (" + str(exc) + ")")
+                sources = json.loads(source_config)
+                if not isinstance(sources, dict) or not isinstance(sources.get("sources"), list):
+                    raise ValueError("estrutura inválida no segredo de fontes")
+            except (ValueError, json.JSONDecodeError) as exc:
+                raise ValueError("WYO_PUBLIC_SOURCES_JSON inválido") from exc
+            for src in sources["sources"]:
+                if not isinstance(src, dict) or not isinstance(src.get("project_id"), str):
+                    raise ValueError("origem sem identificador válido")
+                try:
+                    sync_source(src, site, out, token)
+                except (ValueError, RuntimeError, URLError, json.JSONDecodeError) as exc:
+                    print("AVISO " + src["project_id"] + ": não sincronizado (" + type(exc).__name__ + ")")
+        else:
+            print("SKIP: nenhuma origem configurada; segredos não fornecidos")
     for p in site["projects"]:
         p.pop("repository", None)
         p.pop("source", None)
     (out / "content" / "site.json").write_text(json.dumps(site, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    (out / "feed.xml").write_text(render_feed(site["posts"]), encoding="utf-8")
     (out / "sitemap.xml").write_text(render_sitemap(), encoding="utf-8")
     (out / "robots.txt").write_text("User-agent: *\nAllow: /\nSitemap: " + SITE_URL + "/sitemap.xml\n", encoding="utf-8")
     print("OK: " + str(len(site["projects"])) + " projetos e " + str(len(site["posts"])) + " artigos")

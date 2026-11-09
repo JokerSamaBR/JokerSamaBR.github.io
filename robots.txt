@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://jokersamabr.github.io/sitemap.xml
+Sitemap: https://dev.wyoplay.com/sitemap.xml

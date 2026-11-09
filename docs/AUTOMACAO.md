@@ -23,7 +23,15 @@ No GitHub, crie um **Personal access token (fine-grained)** somente para os repo
 
 Nunca cole tokens no chat, README ou arquivos do repositório.
 
-As fontes cadastradas estão em automation/sources.json. O repositório privado precisa conter docs/PUBLIC_SHOWCASE.json com project_id e publish=true. O exemplo está em automation/PUBLIC_SHOWCASE.example.json.
+A lista de fontes deve ficar exclusivamente no **segredo GitHub Actions `WYO_PUBLIC_SOURCES_JSON`**, pois esta conta e os nomes dos repositórios monitorados não devem ser publicados em arquivos do portal. O repositório privado precisa conter `docs/PUBLIC_SHOWCASE.json` com `project_id` e `publish=true`. O exemplo editorial fica em `automation/PUBLIC_SHOWCASE.example.json`.
+
+No **Settings → Secrets and variables → Actions**, crie também `WYO_PUBLIC_SOURCES_JSON` com este formato (substitua cada `OWNER/REPO` pelos identificadores reais apenas dentro da área de Secrets, sem publicá-los):
+
+```json
+{"sources":[{"project_id":"next","repository":"OWNER/REPO_PRIVADO_1","visibility":"private"},{"project_id":"superzip","repository":"OWNER/REPO_PRIVADO_2","visibility":"private"},{"project_id":"assetstudio","repository":"OWNER/REPO_PUBLICO","visibility":"public"}]}
+```
+
+Sem esse segredo, o portal continua público e funcional, mas a importação dos manifestos de origem fica desativada. O segredo de fontes não concede acesso por si só: `WYO_PUBLIC_FEED_READ_TOKEN` continua necessário para os repositórios privados.
 
 ## Habilitar deploy automático
 No repositório público, Settings → Pages → **Build and deployment → Source: GitHub Actions**. Isso é necessário porque o workflow usa actions/deploy-pages para implantar o artefato compilado; sem essa troca, as execuções podem falhar enquanto o modo de publicação por branch continuar ativo.
@@ -66,3 +74,7 @@ IDs atualmente suportados: next, superzip, assetstudio. Para incluir um novo pro
 - SuperZIP: telas de compactação, configuração e instaladores.
 - WYO Asset Studio: sheet de oito direções existente.
 - Outros projetos: ficam sem imagens até haver uma demonstração apropriada.
+
+## Correção de privacidade
+
+O RSS público foi desativado, e os arquivos estáticos existentes não devem mencionar endereços antigos do domínio GitHub Pages nem nomes de repositórios privados. Atenção: remover um arquivo de um repositório público **não apaga suas versões antigas no histórico Git**. Para eliminar essas versões do histórico, é necessária uma operação separada de reescrita, com avaliação de impacto nos clones, builds e referências já compartilhadas. A hospedagem gratuita do GitHub Pages permanece associável à conta pública pelo DNS e pelo próprio GitHub.

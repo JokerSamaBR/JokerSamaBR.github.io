@@ -41,6 +41,7 @@ jobs:
       - name: Atualizar dados publicáveis e gerar site
         env:
           WYO_PUBLIC_FEED_READ_TOKEN: ${{ secrets.WYO_PUBLIC_FEED_READ_TOKEN }}
+          WYO_PUBLIC_SOURCES_JSON: ${{ secrets.WYO_PUBLIC_SOURCES_JSON }}
           GITHUB_TOKEN: ${{ github.token }}
         run: python scripts/build_site.py --remote
       - name: Configurar GitHub Pages

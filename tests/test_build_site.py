@@ -2,7 +2,7 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
-from scripts.build_site import build, public_text, render_feed, render_sitemap, valid_image
+from scripts.build_site import build, public_text, render_sitemap, valid_image
 
 
 class PortalBuildTests(unittest.TestCase):
@@ -22,10 +22,16 @@ class PortalBuildTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             public_text("Projeto hospedado em https://github.com/conta/repo")
 
-    def test_rss(self):
-        feed = render_feed([{"title":"Teste & desenvolvimento","slug":"teste-um","date":"2026-11-09","summary":"Concluído"}])
-        self.assertIn("Teste &amp; desenvolvimento", feed)
-        self.assertIn("dev.wyoplay.com", feed)
+    def test_sem_rss_ou_referencias_a_repositorios(self):
+        with tempfile.TemporaryDirectory() as folder:
+            out = Path(folder) / "dist"
+            build(False, out)
+            self.assertFalse((out / "feed.xml").exists())
+            html = (out / "index.html").read_text(encoding="utf-8")
+            self.assertNotIn("RSS</a>", html)
+            self.assertNotIn("jokersamabr.github.io", html.lower())
+            self.assertNotIn("github.com", html.lower())
+            self.assertFalse((out / "automation").exists())
 
     def test_sitemap(self):
         self.assertIn("https://dev.wyoplay.com/", render_sitemap())
