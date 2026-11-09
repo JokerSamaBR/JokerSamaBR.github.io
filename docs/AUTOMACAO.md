@@ -10,28 +10,38 @@ O portal apresenta informações e imagens de demonstração autorizadas. Não p
 As publicações são acessadas por links internos do próprio portal. As imagens ficam hospedadas em assets/demos/, sem apontar para o repositório de origem.
 
 ## Como funciona
-O GitHub Actions gera o site a cada push e verifica fontes selecionadas **a cada seis horas**. Horários podem atrasar conforme disponibilidade do GitHub.
 
-- Projetos públicos: somente a data de atividade pode ser consultada automaticamente. Não são mostrados mensagens de commits, branches ou URLs de repositórios. Novidades detalhadas dependem de manifesto editorial opt-in.
-- Projetos privados: o workflow só lê docs/PUBLIC_SHOWCASE.json, caso exista e tenha publish=true. Não varre código, commits, PRs nem dados internos.
-- Imagens novas: somente itens indicados no manifesto e guardados em docs/public-showcase/images/, com extensões PNG, JPEG ou WebP e até 4 MiB por imagem.
+O GitHub Actions gera e publica o portal após alterações na branch principal, quando acionado manualmente e **a cada hora** (o agendamento do GitHub pode sofrer atrasos).
 
-**O portal não transforma automaticamente todo commit em notícia.** É necessário que o projeto registre explicitamente informações públicas verificadas. Isso evita divulgar trabalhos incompletos e dados restritos.
+- **Fontes públicas:** registradas em `automation/sources.public.json`. Atualmente Asset Studio e MidgardStudio. A leitura é automática e não precisa de token extra.
+- **Fontes privadas:** somente as aprovadas no segredo `WYO_PUBLIC_SOURCES_JSON`, com um fine-grained PAT de acesso **Contents: Read-only** no segredo `WYO_PUBLIC_FEED_READ_TOKEN`. O token deve ter acesso apenas aos repositórios selecionados.
+- **Publicação editorial:** um manifesto `docs/PUBLIC_SHOWCASE.json` com `publish=true` permite importar descrição, status e atualizações verificadas. O campo `updates` deve conter objetos estruturados.
+- **Base protegida:** a fonte `emulator` pode usar `metadata_only=true` (opção explícita) para mostrar apenas a data de atividade. Nenhum arquivo, commit ou código desse repositório é modificado.
+- **Imagens:** só são importadas do diretório `docs/public-showcase/images/` da fonte, com assinatura de arquivo válida e até 4 MiB. Sem manifesto/imagem autorizada, o portal mantém suas imagens locais existentes.
+- **Privacidade:** nenhuma URL do GitHub, segredo, mensagem de commit ou código privado é exportado no site.
 
-## Ativar a consulta de projetos privados
-No GitHub, crie um **Personal access token (fine-grained)** somente para os repositórios privados escolhidos. Permissão mínima: **Contents: Read-only**. Em Settings → Secrets and variables → Actions, no repositório público JokerSamaBR.github.io, cadastre o segredo chamado WYO_PUBLIC_FEED_READ_TOKEN.
+Sem os segredos, **os projetos privados permanecem visíveis como cartões editoriais**, mas a atividade deles não será atualizada automaticamente.
 
-Nunca cole tokens no chat, README ou arquivos do repositório.
+## Ativar monitoramento dos repositórios privados
 
-A lista de fontes deve ficar exclusivamente no **segredo GitHub Actions `WYO_PUBLIC_SOURCES_JSON`**, pois esta conta e os nomes dos repositórios monitorados não devem ser publicados em arquivos do portal. O repositório privado precisa conter `docs/PUBLIC_SHOWCASE.json` com `project_id` e `publish=true`. O exemplo editorial fica em `automation/PUBLIC_SHOWCASE.example.json`.
+Abra o repositório do portal, em **Settings → Secrets and variables → Actions**.
 
-No **Settings → Secrets and variables → Actions**, crie também `WYO_PUBLIC_SOURCES_JSON` com este formato (substitua cada `OWNER/REPO` pelos identificadores reais apenas dentro da área de Secrets, sem publicá-los):
+1. Cadastre `WYO_PUBLIC_FEED_READ_TOKEN` com um token fine-grained de leitura, restrito aos repositórios privados escolhidos e à permissão **Contents: Read-only**.
+2. Cadastre `WYO_PUBLIC_SOURCES_JSON` no formato abaixo. Substitua os identificadores pelos nomes completos reais apenas dentro do campo secreto:
 
 ```json
-{"sources":[{"project_id":"next","repository":"OWNER/REPO_PRIVADO_1","visibility":"private"},{"project_id":"superzip","repository":"OWNER/REPO_PRIVADO_2","visibility":"private"},{"project_id":"assetstudio","repository":"OWNER/REPO_PUBLICO","visibility":"public"}]}
+{
+  "sources": [
+    {"project_id":"next", "repository":"OWNER/REPO_NEXT", "visibility":"private"},
+    {"project_id":"superzip", "repository":"OWNER/REPO_SUPERZIP", "visibility":"private"},
+    {"project_id":"emulator", "repository":"OWNER/REPO_BASE_PROTEGIDA", "visibility":"private", "metadata_only":true}
+  ]
+}
 ```
 
-Sem esse segredo, o portal continua público e funcional, mas a importação dos manifestos de origem fica desativada. O segredo de fontes não concede acesso por si só: `WYO_PUBLIC_FEED_READ_TOKEN` continua necessário para os repositórios privados.
+Não cadastre fontes privadas em `automation/sources.public.json`. O segredo de fontes **não concede acesso** sem o token de leitura. O sincronizador só publica os dados autorizados e não altera os repositórios de origem.
+
+**IDs aceitos no portal:** `next`, `online`, `assetstudio`, `superzip`, `digital`, `emulator`, `midgardstudio`. Outros projetos exigem cadastro prévio em `content/site.json`.
 
 ## Habilitar deploy automático
 No repositório público, Settings → Pages → **Build and deployment → Source: GitHub Actions**. Isso é necessário porque o workflow usa actions/deploy-pages para implantar o artefato compilado; sem essa troca, as execuções podem falhar enquanto o modo de publicação por branch continuar ativo.
@@ -61,7 +71,7 @@ Depois, em Actions → Publicar portal WYO Dev Journal → Run workflow, inicie 
 }
 ```
 
-IDs atualmente suportados: next, superzip, assetstudio. Para incluir um novo projeto, adicionar o cartão no conteúdo base e uma fonte correspondente no cadastro privado da automação, se necessário.
+Os projetos cadastrados em `content/site.json` recebem atualizações das fontes que forem explicitamente autorizadas.
 
 ## Proteções
 - Não copiar repositórios privados integralmente.
@@ -71,7 +81,7 @@ IDs atualmente suportados: next, superzip, assetstudio. Para incluir um novo pro
 - Não usar APIs de IA pagas.
 
 ## Demonstrações iniciais
-- SuperZIP: telas de compactação, configuração e instaladores.
+- SuperZIP: telas de compactação, configuração e instaladores (mantidas no portal).
 - WYO Asset Studio: sheet de oito direções existente.
 - Outros projetos: ficam sem imagens até haver uma demonstração apropriada.
 

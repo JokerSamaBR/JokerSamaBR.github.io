@@ -1,0 +1,14 @@
+{
+  "sources": [
+    {
+      "project_id": "assetstudio",
+      "repository": "JokerSamaBR/wtto-projeto",
+      "visibility": "public"
+    },
+    {
+      "project_id": "midgardstudio",
+      "repository": "JokerSamaBR/MidgardStudio",
+      "visibility": "public"
+    }
+  ]
+}

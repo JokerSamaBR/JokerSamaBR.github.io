@@ -2,7 +2,7 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
-from scripts.build_site import build, public_text, render_sitemap, valid_image
+from scripts.build_site import build, public_text, render_sitemap, valid_image, PUBLIC_SOURCES
 
 
 class PortalBuildTests(unittest.TestCase):
@@ -32,6 +32,19 @@ class PortalBuildTests(unittest.TestCase):
             self.assertNotIn("jokersamabr.github.io", html.lower())
             self.assertNotIn("github.com", html.lower())
             self.assertFalse((out / "automation").exists())
+
+    def test_fontes_publicas_autorizadas(self):
+        sources = json.loads(PUBLIC_SOURCES.read_text(encoding="utf-8"))["sources"]
+        self.assertEqual({x["project_id"] for x in sources}, {"assetstudio", "midgardstudio"})
+        self.assertTrue(all(x["visibility"] == "public" for x in sources))
+
+    def test_cartoes_privados_sem_repositorio_exportado(self):
+        with tempfile.TemporaryDirectory() as folder:
+            out = Path(folder) / "dist"
+            build(False, out)
+            data = json.loads((out / "content/site.json").read_text(encoding="utf-8"))
+            self.assertTrue({"next", "superzip", "emulator"}.issubset({p["id"] for p in data["projects"]}))
+            self.assertNotIn("github.com", (out / "content/site.json").read_text(encoding="utf-8"))
 
     def test_sitemap(self):
         self.assertIn("https://dev.wyoplay.com/", render_sitemap())

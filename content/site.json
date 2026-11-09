@@ -7,7 +7,7 @@
       "id": "next",
       "title": "WYO Next Generation",
       "type": "MMORPG · P&D",
-      "status": "Planejamento",
+      "status": "Planejamento documentado",
       "description": "Pesquisa para uma nova experiência MMO autoral, com Godot, comunicação de rede própria e backend avaliado em laboratório.",
       "tags": [
         "Godot",
@@ -77,6 +77,34 @@
         "Web"
       ],
       "url": "https://digital.wyoplay.com/",
+      "images": []
+    },
+    {
+      "id": "emulator",
+      "title": "WYO Emulator Base",
+      "type": "Infraestrutura de desenvolvimento · Referência",
+      "status": "Base protegida — referência técnica",
+      "description": "Base técnica preservada para estudos, compatibilidade e documentação. Código do projeto e alterações internas não são publicados nesta vitrine.",
+      "tags": [
+        "Base técnica",
+        "Documentação",
+        "Referência"
+      ],
+      "url": "",
+      "images": []
+    },
+    {
+      "id": "midgardstudio",
+      "title": "Midgard Studio — WYO Digital",
+      "type": "Aplicativo Windows · Editor",
+      "status": "Versão 1.2.1 Preview",
+      "description": "Editor portátil de dados de servidor e cliente, com navegação GRF somente leitura, validação, backups e menus em inglês e português brasileiro.",
+      "tags": [
+        "Windows",
+        "Editor",
+        "PT-BR / EN"
+      ],
+      "url": "",
       "images": []
     }
   ],
