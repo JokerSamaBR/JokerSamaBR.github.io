@@ -20,6 +20,7 @@ ALLOWED_URLS = {"", "https://www.wyoplay.com/", "https://digital.wyoplay.com/"}
 CATEGORIES = {"Projeto", "Ferramentas", "Engenharia", "Atualizações"}
 MANIFEST = "docs/PUBLIC_SHOWCASE.json"
 IMAGE_DIR = "docs/public-showcase/images/"
+PUBLIC_SOURCES = ROOT / "automation" / "sources.public.json"
 MAX_IMAGE_BYTES = 4 * 1024 * 1024
 IMAGE_TYPES = {".png", ".jpg", ".jpeg", ".webp"}
 SLUG = re.compile(r"^[a-z][a-z0-9-]{1,70}$")
@@ -89,10 +90,14 @@ def sync_source(source, site, dist, token=""):
         print("SKIP " + pid + ": falta token restrito para fontes privadas")
         return
     auth = token if source["visibility"] == "private" else os.getenv("GITHUB_TOKEN", "")
-    if source["visibility"] == "public":
-        response = github_json("https://api.github.com/repos/" + repo + "/commits?per_page=1", auth)
-        if isinstance(response, list) and response:
-            project["lastActivity"] = response[0]["commit"]["committer"]["date"]
+    # Only approved sources can publish activity. Never expose commit messages or source URLs.
+    metadata = github_json("https://api.github.com/repos/" + repo, auth)
+    if metadata is None:
+        print("SKIP " + pid + ": repository unavailable")
+        return
+    if bool(metadata.get("private")) != (source["visibility"] == "private"):
+        print("SKIP " + pid + ": visibility mismatch")
+        return
     raw = github_file(repo, MANIFEST, auth)
     if raw is None:
         print("SKIP " + pid + ": manifesto público ausente")
@@ -103,6 +108,9 @@ def sync_source(source, site, dist, token=""):
     if m.get("publish") is not True or m.get("project_id") != pid:
         print("SKIP " + pid + ": publicação não autorizada")
         return
+    # Date is public only after the repository has opted in via its manifest.
+    if metadata.get("pushed_at"):
+        project["lastActivity"] = metadata["pushed_at"]
     for key in ("description", "status"):
         if key in m:
             project[key] = public_text(m[key], 550 if key == "description" else 90)
@@ -124,6 +132,8 @@ def sync_source(source, site, dist, token=""):
         project["images"] = image_paths
     seen = {p["slug"] for p in site["posts"]}
     for entry in m.get("updates", [])[:20]:
+        if not isinstance(entry, dict):
+            continue
         slug = entry.get("slug")
         if not isinstance(slug, str) or not SLUG.fullmatch(slug) or slug in seen:
             continue
@@ -177,23 +187,31 @@ def build(remote=False, out=None):
                        and (out / img.lstrip("/")).is_file()]
     if remote:
         token = os.getenv("WYO_PUBLIC_FEED_READ_TOKEN", "")
+        # Public repositories are opt-in via committed source list. Private repositories
+        # are configured exclusively through Actions secrets (never embedded in the site).
+        sources = read_json(PUBLIC_SOURCES).get("sources", []) if PUBLIC_SOURCES.exists() else []
         source_config = os.getenv("WYO_PUBLIC_SOURCES_JSON", "").strip()
         if source_config:
             try:
-                sources = json.loads(source_config)
-                if not isinstance(sources, dict) or not isinstance(sources.get("sources"), list):
+                configured = json.loads(source_config)
+                if not isinstance(configured, dict) or not isinstance(configured.get("sources"), list):
                     raise ValueError("estrutura inválida no segredo de fontes")
+                sources += configured["sources"]
             except (ValueError, json.JSONDecodeError) as exc:
                 raise ValueError("WYO_PUBLIC_SOURCES_JSON inválido") from exc
-            for src in sources["sources"]:
-                if not isinstance(src, dict) or not isinstance(src.get("project_id"), str):
-                    raise ValueError("origem sem identificador válido")
-                try:
-                    sync_source(src, site, out, token)
-                except (ValueError, RuntimeError, URLError, json.JSONDecodeError) as exc:
-                    print("AVISO " + src["project_id"] + ": não sincronizado (" + type(exc).__name__ + ")")
-        else:
-            print("SKIP: nenhuma origem configurada; segredos não fornecidos")
+        seen_sources = set()
+        for src in sources:
+            if not isinstance(src, dict) or not isinstance(src.get("project_id"), str):
+                raise ValueError("origem sem identificador válido")
+            if src["project_id"] in seen_sources:
+                continue
+            seen_sources.add(src["project_id"])
+            try:
+                sync_source(src, site, out, token)
+            except (ValueError, RuntimeError, URLError, json.JSONDecodeError) as exc:
+                print("AVISO " + src["project_id"] + ": não sincronizado (" + type(exc).__name__ + ")")
+        if not sources:
+            print("SKIP: nenhuma origem configurada")
     for p in site["projects"]:
         p.pop("repository", None)
         p.pop("source", None)
