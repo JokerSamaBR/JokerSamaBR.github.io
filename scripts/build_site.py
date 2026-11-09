@@ -100,6 +100,12 @@ def sync_source(source, site, dist, token=""):
         return
     raw = github_file(repo, MANIFEST, auth)
     if raw is None:
+        # Explicit opt-in by the owner for a protected, read-only reference repo.
+        # This publishes only an activity timestamp; never code or commit details.
+        if source.get("metadata_only") is True and metadata.get("pushed_at"):
+            project["lastActivity"] = metadata["pushed_at"]
+            print("OK " + pid + ": somente data de atividade autorizada")
+            return
         print("SKIP " + pid + ": manifesto público ausente")
         return
     if len(raw) > 128 * 1024:
