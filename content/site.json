@@ -1,0 +1,130 @@
+{
+  "site": "WYO Dev Journal",
+  "version": 1,
+  "updated": "2026-11-09",
+  "projects": [
+    {
+      "id": "next",
+      "title": "WYO Next Generation",
+      "type": "MMORPG · P&D",
+      "status": "Planejamento",
+      "description": "Pesquisa para uma nova experiência MMO autoral, com Godot, comunicação de rede própria e backend avaliado em laboratório.",
+      "tags": [
+        "Godot",
+        "Arquitetura",
+        "Quality Gate"
+      ],
+      "url": ""
+    },
+    {
+      "id": "online",
+      "title": "World Yggdrasil Online",
+      "type": "Mundo online",
+      "status": "Projeto existente",
+      "description": "O universo WYO, com sistemas de comunidade, economia e progressão. Divulgaremos marcos quando estiverem prontos para o público.",
+      "tags": [
+        "MMORPG",
+        "Comunidade",
+        "Sistemas"
+      ],
+      "url": "https://www.wyoplay.com/"
+    },
+    {
+      "id": "procedural",
+      "title": "WYO Procedural Studio",
+      "type": "Ferramentas criativas",
+      "status": "Projeto relacionado",
+      "description": "Pesquisa e ferramentas para criar assets visuais e organizar processos de produção.",
+      "tags": [
+        "Procedural",
+        "Assets",
+        "Ferramentas"
+      ],
+      "url": ""
+    }
+  ],
+  "posts": [
+    {
+      "slug": "inicio-wyo-next-generation",
+      "title": "O início do WYO Next Generation",
+      "date": "2026-11-09",
+      "category": "Projeto",
+      "project": "WYO Next Generation",
+      "summary": "Um novo espaço para registrar escolhas, descobertas e experimentos rumo a um MMORPG autoral.",
+      "sections": [
+        {
+          "title": "Um projeto de pesquisa e preparação",
+          "body": "O WYO Next Generation começou como um planejamento de uma nova experiência MMORPG autoral. A proposta é preservar o aprendizado do World Yggdrasil Online enquanto investigamos uma arquitetura moderna."
+        },
+        {
+          "title": "O que já foi preparado",
+          "bullets": [
+            "Visão, objetivos e roadmap documentados.",
+            "Arquitetura inicial registrada como hipótese, não como implementação concluída.",
+            "Base atual protegida contra alterações acidentais.",
+            "Critérios verificáveis para testes futuros."
+          ]
+        },
+        {
+          "title": "Próximo passo",
+          "body": "Investigar uma prova de conceito isolada com Godot, autenticação de teste, personagem fictício, movimentação e persistência. Ainda não há um novo cliente jogável."
+        }
+      ]
+    },
+    {
+      "slug": "skills-codex-wyo",
+      "title": "Cinco skills de Codex para o desenvolvimento WYO",
+      "date": "2026-11-09",
+      "category": "Ferramentas",
+      "project": "WYO Next Generation",
+      "summary": "Qualidade, segurança, planejamento de testes, mapa de código e experimentos isolados já estão documentados.",
+      "sections": [
+        {
+          "title": "Procedimentos adaptados ao projeto",
+          "body": "Criamos instruções locais para o Codex atuar com menos repetição e executar verificações proporcionais à tarefa."
+        },
+        {
+          "title": "As cinco skills",
+          "bullets": [
+            "WYO Quality Gate: testes e regressões.",
+            "Verification Planning: evidências de alterações importantes.",
+            "Security Audit: revisão de superfícies sensíveis.",
+            "Codemap: mapa incremental de módulos.",
+            "Worktrees: experimentos isolados no Git."
+          ]
+        },
+        {
+          "title": "Limites",
+          "body": "As skills estão versionadas no repositório de planejamento e não significam que o novo jogo esteja implementado ou que as ferramentas foram instaladas no computador."
+        }
+      ]
+    },
+    {
+      "slug": "arquitetura-testavel",
+      "title": "Uma arquitetura testável antes do primeiro mapa",
+      "date": "2026-11-09",
+      "category": "Engenharia",
+      "project": "WYO Next Generation",
+      "summary": "Godot, rede e servidor são opções de pesquisa. Testes e decisões técnicas vêm antes da integração.",
+      "sections": [
+        {
+          "title": "Arquitetura de referência",
+          "body": "A proposta distingue cliente Godot, comunicação de rede e lógica do servidor. A escolha entre gateway independente e adaptação direta do backend permanece aberta."
+        },
+        {
+          "title": "O que comprovar",
+          "bullets": [
+            "Mensagens com versões, tipos, limites e erros.",
+            "Autenticação e personagens fictícios em ambiente isolado.",
+            "Movimento validado pelo servidor.",
+            "Reconexão e persistência sem utilizar dados de produção."
+          ]
+        },
+        {
+          "title": "Estado atual",
+          "body": "O rAthena é uma referência técnica para avaliação. A comunicação entre um cliente Godot e o protocolo histórico ainda não foi demonstrada."
+        }
+      ]
+    }
+  ]
+}
