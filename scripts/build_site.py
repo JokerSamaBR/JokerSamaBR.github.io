@@ -78,6 +78,32 @@ def valid_image(data, ext):
             or ext == ".webp" and data[:4] == b"RIFF" and data[8:12] == b"WEBP")
 
 
+def append_activity_post(site, project, pushed_at):
+    """One factual daily entry per opted-in project; no commit details or release claims."""
+    if not isinstance(pushed_at, str):
+        return
+    try:
+        dt = datetime.fromisoformat(pushed_at.replace("Z", "+00:00"))
+    except ValueError:
+        return
+    day = dt.date().isoformat()
+    slug = "activity-" + project["id"] + "-" + day
+    if not SLUG.fullmatch(slug) or any(p["slug"] == slug for p in site["posts"]):
+        return
+    site["posts"].append({
+        "slug": slug,
+        "title": "Atividade registrada — " + project["title"],
+        "date": day,
+        "publishedAt": pushed_at,
+        "category": "Atualizações",
+        "project": project["title"],
+        "summary": "Uma alteração foi registrada neste projeto. Isso não significa, por si só, uma nova versão ou funcionalidade concluída.",
+        "sections": [
+            {"title": "Registro de atividade", "body": "A data foi verificada na fonte autorizada. Os detalhes técnicos não são publicados automaticamente; novidades confirmadas aparecem em anúncios próprios."}
+        ],
+    })
+
+
 def sync_source(source, site, dist, token=""):
     pid = source["project_id"]
     project = next((p for p in site["projects"] if p["id"] == pid), None)
@@ -104,6 +130,7 @@ def sync_source(source, site, dist, token=""):
         # This publishes only an activity timestamp; never code or commit details.
         if source.get("metadata_only") is True and metadata.get("pushed_at"):
             project["lastActivity"] = metadata["pushed_at"]
+            append_activity_post(site, project, metadata["pushed_at"])
             print("OK " + pid + ": somente data de atividade autorizada")
             return
         print("SKIP " + pid + ": manifesto público ausente")
@@ -117,6 +144,7 @@ def sync_source(source, site, dist, token=""):
     # Date is public only after the repository has opted in via its manifest.
     if metadata.get("pushed_at"):
         project["lastActivity"] = metadata["pushed_at"]
+        append_activity_post(site, project, metadata["pushed_at"])
     for key in ("description", "status"):
         if key in m:
             project[key] = public_text(m[key], 550 if key == "description" else 90)
