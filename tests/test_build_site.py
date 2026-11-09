@@ -2,7 +2,7 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
-from scripts.build_site import build, public_text, render_sitemap, valid_image, PUBLIC_SOURCES
+from scripts.build_site import build, public_text, render_sitemap, valid_image, PUBLIC_SOURCES, append_activity_post
 
 
 class PortalBuildTests(unittest.TestCase):
@@ -45,6 +45,23 @@ class PortalBuildTests(unittest.TestCase):
             data = json.loads((out / "content/site.json").read_text(encoding="utf-8"))
             self.assertTrue({"next", "superzip", "emulator"}.issubset({p["id"] for p in data["projects"]}))
             self.assertNotIn("github.com", (out / "content/site.json").read_text(encoding="utf-8"))
+
+    def test_atividade_verificada_nao_inventa_release(self):
+        site = {"posts": []}
+        project = {"id": "midgardstudio", "title": "Midgard Studio"}
+        append_activity_post(site, project, "2026-11-09T20:30:00Z")
+        append_activity_post(site, project, "2026-11-09T21:40:00Z")
+        self.assertEqual(len(site["posts"]), 1)
+        post = site["posts"][0]
+        self.assertEqual(post["slug"], "activity-midgardstudio-2026-11-09")
+        self.assertEqual(post["publishedAt"], "2026-11-09T20:30:00Z")
+        self.assertIn("não significa", post["summary"])
+        self.assertNotIn("github.com", json.dumps(post))
+
+    def test_atividade_ignora_data_invalida(self):
+        site = {"posts": []}
+        append_activity_post(site, {"id": "emulator", "title": "Base protegida"}, "invalid")
+        self.assertEqual(site["posts"], [])
 
     def test_sitemap(self):
         self.assertIn("https://dev.wyoplay.com/", render_sitemap())
