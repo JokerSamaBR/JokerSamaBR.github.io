@@ -1,29 +1,29 @@
-# WYO Dev Journal
+# WYO Dev Journal — portal público
 
-Portal público da **WYO Digital**, publicado com **GitHub Pages** e conteúdo editorial separado do repositório privado [WYO Next Generation](https://github.com/JokerSamaBR).
+Site: https://dev.wyoplay.com/
 
-## Publicações
+Vitrine pública de desenvolvimento com descrição dos projetos, atualizações e imagens de demonstração.
 
-As publicações e os projetos exibidos estão em [content/site.json](content/site.json). Editar esse arquivo na branch `main` atualiza o conteúdo visível automaticamente na próxima publicação do GitHub Pages, pois o navegador lê o JSON atualizado. Alterações no repositório privado **não são divulgadas automaticamente** — somente os textos aprovados para publicação entram aqui.
+## Política de links
 
-## Ativar GitHub Pages
+O site **não aponta para repositórios GitHub**. Links externos visíveis ficam restritos a:
+- https://www.wyoplay.com/
+- https://digital.wyoplay.com/
 
-Settings → Pages → Build and deployment: `Deploy from a branch`, `main`, `/(root)` → Save.
+Os links dos próprios artigos e do RSS são internos ao portal.
 
-Endereço padrão: https://jokersamabr.github.io/
+## Atualizações automáticas
 
-## Subdomínio
+O GitHub Actions prepara o site em `scripts/build_site.py` e publica via GitHub Pages. O sincronizador consulta fontes públicas selecionadas e, quando um token de leitura restrita estiver configurado, também pode importar **somente** manifestos aprovados para publicação de repositórios privados. Nunca exporta código ou mensagens de commit privadas.
 
-Depois de publicar, Settings → Pages → Custom domain: `dev.wyoplay.com`. No provedor DNS, criar `CNAME` `dev` para `jokersamabr.github.io`. Habilitar HTTPS quando o certificado estiver disponível.
-
-**Não modificar** `www.wyoplay.com` ou o domínio raiz. Se migrar para o domínio personalizado, atualizar URLs absolutas em `index.html`, `feed.xml` e `sitemap.xml`.
+Veja `docs/AUTOMACAO.md` para a configuração do token e a política de imagens. O estado do portal não substitui os registros de engenharia nos repositórios de origem.
 
 ## Arquivos
 
-- `index.html` página inicial com projetos, novidades, busca e filtros.
-- `post.html` artigos gerados a partir dos dados editoriais.
-- `content/site.json` conteúdo público. Nunca incluir segredos, dados de usuários ou infraestrutura interna.
-- `assets/` apresentação, logo próprio e interatividade.
-- `feed.xml`, `sitemap.xml`, `robots.txt` ferramentas de descoberta.
+- `content/site.json`: conteúdo editorial público base.
+- `assets/demos/`: imagens de demonstração aprovadas, hospedadas localmente no Pages.
+- `automation/sources.json`: lista interna de fontes, que não aparece no site.
+- `scripts/build_site.py`: gerador estático, RSS e sitemap.
+- `.github/workflows/publish.yml`: publicação automática sem IA paga.
 
-Construído com HTML5/CSS3/JavaScript, sem dependências pagas ou backend.
+Repositório público: não armazene senhas, dados de jogadores, código privado ou informações de infraestrutura neste portal.

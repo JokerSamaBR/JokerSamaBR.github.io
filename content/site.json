@@ -14,33 +14,70 @@
         "Arquitetura",
         "Quality Gate"
       ],
-      "url": ""
+      "url": "",
+      "images": []
     },
     {
       "id": "online",
       "title": "World Yggdrasil Online",
       "type": "Mundo online",
       "status": "Projeto existente",
-      "description": "O universo WYO, com sistemas de comunidade, economia e progressão. Divulgaremos marcos quando estiverem prontos para o público.",
+      "description": "Universo World Yggdrasil Online: comunidade, progressão e sistemas de jogo. Acompanhe atualizações públicas e novidades sobre o projeto.",
       "tags": [
         "MMORPG",
         "Comunidade",
         "Sistemas"
       ],
-      "url": "https://www.wyoplay.com/"
+      "url": "https://www.wyoplay.com/",
+      "images": []
     },
     {
-      "id": "procedural",
-      "title": "WYO Procedural Studio",
-      "type": "Ferramentas criativas",
-      "status": "Projeto relacionado",
-      "description": "Pesquisa e ferramentas para criar assets visuais e organizar processos de produção.",
+      "id": "assetstudio",
+      "title": "WYO Asset Studio",
+      "type": "Ferramenta criativa · Assets",
+      "status": "Projeto em desenvolvimento",
+      "description": "Ferramentas locais para sprites, logos, efeitos e organização de referências, incluindo recorte de sheets com oito vistas já existentes.",
       "tags": [
-        "Procedural",
-        "Assets",
-        "Ferramentas"
+        "Sprite Forge",
+        "Logo Forge",
+        "FX Studio"
       ],
-      "url": ""
+      "url": "",
+      "images": [
+        "/assets/demos/wyo-asset-sprite-sheet.png"
+      ]
+    },
+    {
+      "id": "superzip",
+      "title": "SuperZIP — WYO Digital",
+      "type": "Ferramenta de arquivos · Windows",
+      "status": "Versão 3.2.9 documentada",
+      "description": "Aplicativo portátil para compactar, verificar e comparar arquivos ZIP e criar instaladores para jogos e projetos digitais.",
+      "tags": [
+        "Compactação",
+        "ZIP64",
+        "Instaladores"
+      ],
+      "url": "",
+      "images": [
+        "/assets/demos/superzip-compactar.png",
+        "/assets/demos/superzip-instalador.png",
+        "/assets/demos/superzip-configuracoes.png"
+      ]
+    },
+    {
+      "id": "digital",
+      "title": "WYO Digital",
+      "type": "Produtos digitais · Ferramentas",
+      "status": "Portal online",
+      "description": "Site oficial de produtos digitais e ferramentas para projetos criativos, jogos e desenvolvimento.",
+      "tags": [
+        "Loja digital",
+        "Ferramentas",
+        "Web"
+      ],
+      "url": "https://digital.wyoplay.com/",
+      "images": []
     }
   ],
   "posts": [
@@ -124,6 +161,55 @@
           "title": "Estado atual",
           "body": "O rAthena é uma referência técnica para avaliação. A comunicação entre um cliente Godot e o protocolo histórico ainda não foi demonstrada."
         }
+      ]
+    },
+    {
+      "slug": "superzip-329",
+      "title": "SuperZIP: melhorias na versão 3.2.9",
+      "date": "2026-11-09",
+      "category": "Ferramentas",
+      "project": "SuperZIP — WYO Digital",
+      "summary": "Os exemplos da interface foram padronizados e o aplicativo preserva os recursos de compactação, instaladores e verificação.",
+      "sections": [
+        {
+          "title": "Uma interface mais clara",
+          "body": "A versão 3.2.9 documenta exemplos neutros na interface e instruções mais claras durante o uso."
+        },
+        {
+          "title": "Recursos disponíveis",
+          "bullets": [
+            "Compactar pastas e arquivos em ZIP.",
+            "Verificar integridade e comparar ZIPs.",
+            "Criar instaladores e configurar uso de memória.",
+            "Exibir atividade e progresso da geração de instaladores."
+          ]
+        }
+      ],
+      "images": [
+        "/assets/demos/superzip-compactar.png",
+        "/assets/demos/superzip-instalador.png",
+        "/assets/demos/superzip-configuracoes.png"
+      ]
+    },
+    {
+      "slug": "assetstudio-v21",
+      "title": "WYO Asset Studio: ferramentas para sprites e sheets",
+      "date": "2026-11-09",
+      "category": "Ferramentas",
+      "project": "WYO Asset Studio",
+      "summary": "O estúdio local inclui ferramentas para sprites, logos, efeitos e alinhamento de oito direções já fornecidas.",
+      "sections": [
+        {
+          "title": "Criação e edição local",
+          "body": "O WYO Asset Studio pode funcionar localmente no navegador, com ferramentas de desenho procedural, composição e tratamento de imagens."
+        },
+        {
+          "title": "Sprite Sheet Lab",
+          "body": "A ferramenta pode recortar, alinhar e exportar oito direções de um sheet fornecido. Não inventa vistas que não existam na imagem de entrada."
+        }
+      ],
+      "images": [
+        "/assets/demos/wyo-asset-sprite-sheet.png"
       ]
     }
   ]

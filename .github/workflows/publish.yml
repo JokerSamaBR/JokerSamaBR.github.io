@@ -1,0 +1,54 @@
+name: Publicar portal WYO Dev Journal
+on:
+  push:
+    branches: [main]
+    paths:
+      - "index.html"
+      - "post.html"
+      - "assets/**"
+      - "content/**"
+      - "automation/**"
+      - "scripts/**"
+      - "tests/**"
+      - ".github/workflows/publish.yml"
+      - "CNAME"
+      - ".nojekyll"
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: wyo-pages
+  cancel-in-progress: true
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Baixar arquivos
+        uses: actions/checkout@v4
+      - name: Preparar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Testar gerador
+        run: python -m unittest discover -s tests -v
+      - name: Atualizar dados publicáveis e gerar site
+        env:
+          WYO_PUBLIC_FEED_READ_TOKEN: ${{ secrets.WYO_PUBLIC_FEED_READ_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python scripts/build_site.py --remote
+      - name: Configurar GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Empacotar site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+      - name: Publicar GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

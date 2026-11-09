@@ -1,0 +1,22 @@
+{
+  "publish": true,
+  "project_id": "next",
+  "description": "Pesquisa de um MMORPG autoral em etapa de planejamento.",
+  "status": "Planejamento",
+  "images": [],
+  "updates": [
+    {
+      "slug": "marco-publico-exemplo",
+      "title": "Uma etapa concluída",
+      "date": "2026-11-09",
+      "category": "Atualizações",
+      "summary": "Registro público de uma melhoria efetivamente realizada.",
+      "sections": [
+        {
+          "title": "O que mudou",
+          "body": "Uma mudança documentada e verificada sem informações confidenciais."
+        }
+      ]
+    }
+  ]
+}

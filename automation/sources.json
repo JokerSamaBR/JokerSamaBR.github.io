@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "sources": [
+    {
+      "project_id": "assetstudio",
+      "repository": "JokerSamaBR/wtto-projeto",
+      "visibility": "public"
+    },
+    {
+      "project_id": "next",
+      "repository": "JokerSamaBR/WYO-Next-Generation",
+      "visibility": "private"
+    },
+    {
+      "project_id": "superzip",
+      "repository": "JokerSamaBR/SuperZIP-WYO-Digital",
+      "visibility": "private"
+    }
+  ]
+}
