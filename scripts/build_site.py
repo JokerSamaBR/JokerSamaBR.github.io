@@ -16,7 +16,7 @@ from xml.sax.saxutils import escape
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE_URL = "https://dev.wyoplay.com"
-ALLOWED_URLS = {"", "https://www.wyoplay.com/", "https://digital.wyoplay.com/"}
+ALLOWED_URLS = {"", "https://www.wyoplay.com/", "https://digital.wyoplay.com/", "/assets/mmorpg/"}
 CATEGORIES = {"Projeto", "Ferramentas", "Engenharia", "Atualizações"}
 MANIFEST = "docs/PUBLIC_SHOWCASE.json"
 IMAGE_DIR = "docs/public-showcase/images/"
