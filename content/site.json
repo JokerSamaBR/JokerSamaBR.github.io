@@ -1,20 +1,21 @@
 {
   "site": "WYO Dev Journal",
   "version": 1,
-  "updated": "2026-11-09",
+  "updated": "2026-11-10",
   "projects": [
     {
       "id": "next",
       "title": "WYO Next Generation",
       "type": "MMORPG · P&D",
-      "status": "Planejamento documentado",
-      "description": "Pesquisa para uma nova experiência MMO autoral, com Godot, comunicação de rede própria e backend avaliado em laboratório.",
+      "status": "Conceito original documentado",
+      "description": "MMORPG 3D de mundo vivo: cinco reinos, NPCs com memória e profissões, economia regional, combate action, guildas, moralidade, propriedades, política e expansões planejadas.",
       "tags": [
         "Godot",
-        "Arquitetura",
-        "Quality Gate"
+        "Mundo vivo",
+        "Cinco reinos",
+        "Action RPG"
       ],
-      "url": "",
+      "url": "/assets/mmorpg/",
       "images": []
     },
     {
@@ -109,6 +110,90 @@
     }
   ],
   "posts": [
+    {
+      "slug": "conceito-mmorpg-mundo-vivo",
+      "title": "MMORPG 3D: o conceito completo de um mundo vivo",
+      "date": "2026-11-10",
+      "category": "Projeto",
+      "project": "WYO Next Generation",
+      "summary": "Visão original de Aedrath: cinco reinos, economia persistente, NPCs autônomos, reputação, guildas, combate action e expansões controladas pelo administrador.",
+      "sections": [
+        {
+          "title": "Estado do projeto e identidade",
+          "body": "Conceito em elaboração, sem jogo jogável. WYO Next Generation é o nome de trabalho; Aedrath e A Grande Ruptura são propostas de ambientação, ainda sujeitas a revisão. O universo e os personagens serão originais. Godot, Blender e apoio do Codex são a direção prevista de desenvolvimento, não uma implementação concluída."
+        },
+        {
+          "title": "História: A Era dos Cinco Tronos",
+          "body": "Após o colapso de um antigo império, cinco linhagens fundaram cinco reinos no continente de Aedrath. A Grande Ruptura deixou cidades perdidas, ruínas profundas, dungeons, regiões livres e rivalidades. Cada reino possui capital, família real, territórios e lordes; a história pode evoluir por escolhas da população e futuras expansões."
+        },
+        {
+          "title": "Combate e câmera",
+          "bullets": [
+            "MMORPG 3D em terceira pessoa no lançamento, com ângulo regulável e visão elevada.",
+            "Combate action em tempo real: mira para arqueiros, ataques direcionais, esquivas, dash, cambalhotas e mini teleporte mágico com custo e recarga.",
+            "Progressão, classes, atributos, equipamentos e resistências, balanceados para combate ativo.",
+            "Primeira pessoa planejada como expansão, sem regras de dano privilegiadas."
+          ]
+        },
+        {
+          "title": "Economia viva",
+          "body": "Três moedas comuns: 100 bronze = 1 prata e 100 prata = 1 ouro. Os tesouros reais começam conceitualmente com 100 milhões de ouro por reino, além dos saldos de cidadãos e instituições. Transferências conservam dinheiro, recursos possuem origens e estoques, impostos e salários mudam os saldos de cada agente. NPCs exploram dungeons, mineram, comerciam e utilizam materiais na produção.",
+          "bullets": [
+            "Reinos financiam soldados, alimentação, infraestrutura, missões e ajuda a cidades em crise.",
+            "Preços regionais refletem produção, demanda, infraestrutura, recursos e transações legítimas.",
+            "Guardas têm salário, turnos, equipamento, leis locais e respostas a conflitos."
+          ]
+        },
+        {
+          "title": "NPCs, relações e diálogos",
+          "body": "Jogadores e NPCs começam neutros e podem desenvolver tendências morais diferentes. Cada NPC possui profissão, nível, experiência, objetivos, inventário, família, memórias, emoções, personalidade e relações individuais. Reputação pessoal é separada de moralidade, reputação social e regional. Diálogos modulares combinam papel, estado emocional, conhecimento e lembranças; um mercenário vingativo pode continuar confiando em um antigo amigo."
+        },
+        {
+          "title": "Guildas e contratos",
+          "bullets": [
+            "Guilda dos Aventureiros: missões criadas por jogadores, NPCs e instituições, com entregas parciais remuneradas proporcionalmente e pagamento reservado.",
+            "Guilda dos Mercenários: contratos por tempo ou objetivo para escolta, caçada, proteção, expedição e guerras.",
+            "Guilda dos Assassinos: organização clandestina ligada a reputação, justiça e consequências. Contratações de assassinatos contra jogadores por NPCs ficam previstas para expansão.",
+            "Participantes podem ser jogadores ou NPCs, com correio, prazos, garantias de pagamento e registro de conclusão."
+          ]
+        },
+        {
+          "title": "Lordes, propriedades e guerras",
+          "body": "O título de lorde não garante posse territorial. Quando o sistema for liberado, o jogador poderá obter documentação, pagar taxa de reivindicação e completar missão de reconhecimento; um nobre sem território também poderá disputar domínios. Lordes investem em hospitais, oficinas, castelos, mercados, guardas e estradas. Terrenos podem ser comprados, revendidos ou alugados por períodos de 5 a 30 dias. Venda inicial do lote territorial divide 50% para a coroa e 50% para o lorde.",
+          "bullets": [
+            "A guerra territorial começa por declaração oficial e o defensor escolhe uma data entre 5 e 10 dias depois.",
+            "Antes do conflito, missões pagas mobilizam recursos, mercenários, NPCs e jogadores.",
+            "Conquista envolve romper portões, invadir o castelo e tomar o trono; domínios conquistados passam a gerar tributos ao vencedor.",
+            "O sistema de nobreza e guerra permanece previsto para ativações ou expansões, não anunciado como disponível."
+          ]
+        },
+        {
+          "title": "Loja premium e mercados",
+          "body": "Moeda premium provisoriamente chamada Cristais, emitida inicialmente por contribuições confirmadas e depois negociada entre jogadores. Loja oficial: visuais originais, personalizações e serviços limitados de inventário, peso, armazém e slots. A conta inicia com um personagem; exclusão exige confirmação e regras de proteção. Marketplace de itens por Cristais entre jogadores tem comissão proposta de 20% para o tesouro do reino associado à venda; a loja oficial não paga essa comissão. A moeda premium não é automaticamente convertida em ouro.",
+          "bullets": [
+            "Mercado de personagens, com equipamentos e inventário transferidos com segurança, previsto para expansão.",
+            "Skins de franquias de terceiros somente mediante licença; preferência por artes originais.",
+            "Preços mínimos de marketplace evitam abusos e não usam anúncios artificiais como referência econômica."
+          ]
+        },
+        {
+          "title": "Expansões e administração",
+          "bullets": [
+            "Lançamento: cinco reinos, economia, combate action em terceira pessoa, guildas, NPCs vivos e moralidade.",
+            "Era dos Lordes: títulos, reivindicação e administração territorial.",
+            "Conflitos Territoriais: guerras declaradas, recrutamento, cercos e conquistas.",
+            "Ascensão das Sombras: criminosos evolutivos, facções, fortalezas e lordes malignos.",
+            "Guerra das Coroas: jogadores ou NPCs poderão desafiar monarcas e assumir reinos.",
+            "Complementos futuros: primeira pessoa, mercado de personagens, perseguições contratadas por NPCs e novas regiões.",
+            "Painel administrativo dentro do jogo para parâmetros, permissões, eventos, economia e habilitação agendada de módulos; conta inicial de administrador criada por configuração segura."
+          ]
+        },
+        {
+          "title": "Transparência",
+          "body": "Todas as funcionalidades acima descrevem design e planejamento. Não representam recursos já implementados, disponibilidade de servidores, lançamento marcado ou promessa de entrega. A apresentação visual usa ilustrações conceituais."
+        }
+      ]
+    },
     {
       "slug": "inicio-wyo-next-generation",
       "title": "O início do WYO Next Generation",
