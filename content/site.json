@@ -8,12 +8,12 @@
       "title": "WYO Next Generation",
       "type": "MMORPG · P&D",
       "status": "Planejamento de mundo vivo atualizado",
-      "description": "MMORPG 3D autoral em planejamento: combate action, NPCs com famílias e ciclos de vida, ambições, profissões, longevidade mágica, economia regional, reinos, lordes e história emergente. Ciclo de dia e noite proposto de 4 horas reais por dia do jogo.",
+      "description": "MMORPG 3D autoral em planejamento: combate action, NPCs geracionais, economia e reinos. Nova pesquisa pausada sobre ferraria, equipamentos, materiais de monstros e raridades.",
       "tags": [
         "Godot",
         "Mundo vivo",
-        "NPCs geracionais",
-        "Economia regional"
+        "Equipamentos e ferraria",
+        "Pesquisa pausada"
       ],
       "url": "/assets/mmorpg/",
       "images": []
@@ -110,6 +110,28 @@
     }
   ],
   "posts": [
+    {
+      "slug": "wyo-next-generation-equipamentos-ferraria-2026-11-16",
+      "title": "WYO Next Generation: equipamentos, materiais e ferraria",
+      "date": "2026-11-16",
+      "category": "Projeto",
+      "project": "WYO Next Generation",
+      "summary": "Pesquisa registrada sobre fabricação, materiais de monstros, raridades e profissão de ferreiro, inspirada em Overgeared e Solo Leveling. Desenvolvimento conceitual pausado.",
+      "sections": [
+        {
+          "title": "Referências",
+          "body": "Overgeared foi escolhido como principal referência de estudo para ferraria, projetos e qualidade. Solo Leveling complementa a pesquisa sobre masmorras e recompensas. Não foram copiadas imagens protegidas; há um diagrama conceitual original na página do MMORPG."
+        },
+        {
+          "title": "Sistema proposto",
+          "body": "Coleta e mineração, tratamento de materiais, projetos, fabricação e qualidade do item. Exemplos: presas e escamas de dragão, núcleos de golems e cristais elementais. Raridades candidatas: comum, incomum, raro, épico, lendário e mítico."
+        },
+        {
+          "title": "Estado da etapa",
+          "body": "Ideia registrada no GitHub e páginas públicas. Etapa pausada para continuar em outro dia; não implementada e sem balanceamento aprovado."
+        }
+      ]
+    },
     {
       "slug": "wyo-next-generation-sociedade-viva-2026-11-16",
       "title": "WYO Next Generation: gerações, magia e um mundo que já tem história",
