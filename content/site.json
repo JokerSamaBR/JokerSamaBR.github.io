@@ -8,12 +8,12 @@
       "title": "WYO Next Generation",
       "type": "MMORPG · P&D",
       "status": "Planejamento de mundo vivo atualizado",
-      "description": "MMORPG 3D autoral em planejamento: combate action, NPCs geracionais, economia e reinos. Nova pesquisa pausada sobre ferraria, equipamentos, materiais de monstros e raridades.",
+      "description": "MMORPG 3D estilizado em planejamento, com câmera inspirada no 2.5D, mundo procedural por regiões, cinco reinos, NPCs vivos e otimização para hardware modesto. Pesquisa de ferraria pausada.",
       "tags": [
-        "Godot",
-        "Mundo vivo",
-        "Equipamentos e ferraria",
-        "Pesquisa pausada"
+        "Godot 4",
+        "3D estilizado",
+        "Câmera 2.5D",
+        "Mundo procedural"
       ],
       "url": "/assets/mmorpg/",
       "images": []
@@ -110,6 +110,28 @@
     }
   ],
   "posts": [
+    {
+      "slug": "wyo-next-generation-mundo-procedural-camera-2026-11-16",
+      "title": "WYO Next Generation: diretriz visual e mundo procedural",
+      "date": "2026-11-16",
+      "category": "Projeto",
+      "project": "WYO Next Generation",
+      "summary": "Base definida para iniciar o projeto: mundo 3D estilizado, câmera inspirada no 2.5D, geração procedural com persistência e otimização desde o início.",
+      "sections": [
+        {
+          "title": "Câmera e visual",
+          "body": "Terrenos, personagens e construções em 3D real, estética anime estilizada e câmera inclinada/isométrica com rotação e aproximação. Primeira pessoa como expansão futura."
+        },
+        {
+          "title": "Mundo e dungeons",
+          "body": "Cinco reinos e rotas planejados, regiões procedurais por sementes e escala percebida; cavernas contínuas e instâncias especiais por portais."
+        },
+        {
+          "title": "Desempenho e estado",
+          "body": "Streaming, LOD, culling e simulação de NPCs por distância. Alvo de hardware modesto, a validar com testes. Nenhuma funcionalidade implementada; ferraria pausada."
+        }
+      ]
+    },
     {
       "slug": "wyo-next-generation-equipamentos-ferraria-2026-11-16",
       "title": "WYO Next Generation: equipamentos, materiais e ferraria",
