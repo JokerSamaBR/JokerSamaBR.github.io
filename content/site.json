@@ -1,19 +1,19 @@
 {
   "site": "WYO Dev Journal",
   "version": 1,
-  "updated": "2026-11-10",
+  "updated": "2026-11-16",
   "projects": [
     {
       "id": "next",
       "title": "WYO Next Generation",
       "type": "MMORPG · P&D",
-      "status": "Conceito original documentado",
-      "description": "MMORPG 3D de mundo vivo: cinco reinos, NPCs com memória e profissões, economia regional, combate action, guildas, moralidade, propriedades, política e expansões planejadas.",
+      "status": "Planejamento de mundo vivo atualizado",
+      "description": "MMORPG 3D autoral em planejamento: combate action, NPCs com famílias e ciclos de vida, ambições, profissões, longevidade mágica, economia regional, reinos, lordes e história emergente. Ciclo de dia e noite proposto de 4 horas reais por dia do jogo.",
       "tags": [
         "Godot",
         "Mundo vivo",
-        "Cinco reinos",
-        "Action RPG"
+        "NPCs geracionais",
+        "Economia regional"
       ],
       "url": "/assets/mmorpg/",
       "images": []
@@ -110,6 +110,36 @@
     }
   ],
   "posts": [
+    {
+      "slug": "wyo-next-generation-sociedade-viva-2026-11-16",
+      "title": "WYO Next Generation: gerações, magia e um mundo que já tem história",
+      "date": "2026-11-16",
+      "category": "Projeto",
+      "project": "WYO Next Generation",
+      "summary": "Novas decisões de design: famílias e aprendizes NPCs, ambições e legados, longevidade mágica, reinos com história anterior à abertura e um dia do jogo com quatro horas reais.",
+      "sections": [
+        {
+          "title": "NPCs com vida própria",
+          "body": "O conceito prevê habitantes persistentes que nascem, crescem, aprendem profissões, formam famílias, trabalham, envelhecem e deixam heranças. Necessidades de alimentação, descanso, moradia, segurança e saúde influenciam rotinas e decisões. NPCs podem mudar de profissão, migrar, adoecer, recuperar-se e desenvolver ambições."
+        },
+        {
+          "title": "Magia, longevidade e legado",
+          "body": "Personagens excepcionais poderão buscar alquimia, cultivo de energia, transcendência ou necromancia. Um mago pode tornar-se um Lich e influenciar a história, mas essas evoluções exigem condições e custos, permanecem raras e não garantem invulnerabilidade. Mestres e discípulos podem construir histórias por gerações."
+        },
+        {
+          "title": "Reinos e trama inicial",
+          "body": "A abertura do mundo está planejada com famílias reais, lordes NPCs, regiões administradas pela Coroa e territórios sem lorde. A população já terá profissões, relações, patrimônio e passado coerentes. Conflitos políticos e econômicos podem evoluir de acordo com as ações de jogadores e NPCs, sem desfecho obrigatório."
+        },
+        {
+          "title": "Tempo e simulação",
+          "body": "Ponto de partida aceito para testes: um ciclo completo de 24 horas no jogo dura quatro horas reais. O envelhecimento biológico dos NPCs terá progressão separada; cerca de seis meses reais até a vida adulta é uma meta preliminar, ainda sujeita a balanceamento. A economia não multiplicará recursos artificialmente por causa da aceleração do calendário."
+        },
+        {
+          "title": "Estado real do projeto",
+          "body": "Todas essas funcionalidades são decisões de conceito e planejamento. Não há cliente jogável, servidor novo implementado ou data de lançamento anunciada. Quantidades de reinos e territórios, nomes históricos e parâmetros econômicos ainda podem ser revisados."
+        }
+      ]
+    },
     {
       "slug": "conceito-mmorpg-mundo-vivo",
       "title": "MMORPG 3D: o conceito completo de um mundo vivo",
